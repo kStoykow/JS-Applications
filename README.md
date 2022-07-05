@@ -1,2 +1,1 @@
-# JS-Applications
-SoftUni JS Applications course
+Education flow - SoftUni courses: JS Applications.
