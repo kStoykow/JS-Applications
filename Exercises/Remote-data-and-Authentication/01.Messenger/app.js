@@ -32,7 +32,7 @@ function attachEvents() {
         fetch(url)
             .then(res => res.json())
             .then(res => Object.values(res))
-            .then(messages => messages.map(msg => messagesElem.value += `${msg.author}: ${msg.content}\n`));
+            .then(messages => messagesElem.value += messages.map(msg => `${msg.author}: ${msg.content}`).join('\n'));
     });
 }
 

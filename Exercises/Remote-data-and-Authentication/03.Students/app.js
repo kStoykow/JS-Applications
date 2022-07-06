@@ -1,13 +1,7 @@
 const url = 'http://localhost:3030/jsonstore/collections/students';
-
 const inputs = document.querySelectorAll('.inputs input');
 const resultsElem = document.querySelector('#results tbody');
 const submitBtn = document.getElementById('submit');
-
-const getStudents = () =>
-    fetch(url)
-        .then(res => res.json())
-        .then(res => Object.values(res));
 
 const addStudents = (data) =>
     fetch(url, {
@@ -42,14 +36,33 @@ const appendStudents = (students) => {
     });
 }
 
+const getStudents = () =>
+    fetch(url)
+        .then(res => res.json())
+        .then(res => {
+            console.log(res);
+            return Object.values(res)
+        });
+
+document.addEventListener('DOMContentLoaded', () => {
+    getStudents()
+        .then(appendStudents);
+});
+
 submitBtn.addEventListener('click', (e) => {
     e.preventDefault();
     const inputValues = Array.from(inputs).map(e => e.value);
     const [fname, lname, facultyNumber, grade] = inputValues;
     if (inputValues.every(e => e != '')) {
-        addStudents({ firstName: fname, lastName: lname, facultyNumber, grade: Number(grade) })
-            .then(() => Array.from(inputs).map(e => e.value = ''));
+        addStudents({ firstName: fname, lastName: lname, facultyNumber, grade })
+            .then(res => {
+                console.log(res);
+                Array.from(inputs).map(e => e.value = '')
+            })
+            .then(() => getStudents()
+                .then(appendStudents))
+
     }
-    getStudents()
-        .then(appendStudents);
-})
+    // getStudents()
+    //     .then(appendStudents);
+});
