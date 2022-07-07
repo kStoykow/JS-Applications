@@ -23,7 +23,7 @@ const homeTemplate = (ctx, topicsView, posts) => html`
                 <textarea type="text" name="postText" id="postText" rows="8" class="height"></textarea>
             </div>
             <div class="new-topic-buttons">
-                <button class="cancel">Cancel</button>
+                <button class="cancel" @click=${clearHandler}>Cancel</button>
                 <button class="public">Post</button>
             </div>
         </form>
@@ -45,8 +45,12 @@ const submitHandler = (ctx, e) => {
                 formData.reset();
                 ctx.page.redirect('/');
             });
-
     }
+}
+
+const clearHandler = () => {
+    const formData = document.querySelector('form');
+    formData.reset();
 }
 
 export const homeView = (ctx) => {

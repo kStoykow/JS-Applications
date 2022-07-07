@@ -3,7 +3,7 @@ import { html } from '../../node_modules/lit-html/lit-html.js';
 const topicTemplate = (post) => html`
 <div class="topic-name-wrapper">
     <div class="topic-name">
-        <a href="#" class="normal">
+        <a href="/details/${post._id}" class="normal">
             <h2>${post.topicName}</h2>
         </a>
         <div class="columns">
