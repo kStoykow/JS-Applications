@@ -6,6 +6,7 @@ import { footerMiddleware } from './middlewares/footerRender.js';
 
 import { homeView } from './views/home.js';
 import { loginView } from './views/login.js';
+import { logoutView } from './views/logout.js';
 import { registerView } from './views/register.js';
 
 
@@ -15,6 +16,7 @@ page(footerMiddleware);
 
 page('/', homeView);
 page('/login', loginView);
+page('/logout', logoutView);
 page('/register', registerView);
 
 page.start();

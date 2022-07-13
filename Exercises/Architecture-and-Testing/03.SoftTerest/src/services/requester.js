@@ -18,14 +18,20 @@ function req(method, url, data) {
     }
 
     return fetch(url, options)
-        .then(res => res.json())
         .then(res => {
-            if (res.code == 409) {
+            if (res.status == 204) {
+                return res;
+            }
+            return res.json();
+        })
+        .then(res => {
+            if (res.code == 409 || res.code == 403) {
                 throw new Error(res.message);
             }
 
             return res;
         })
+
 }
 
 export const get = req.bind(null, 'get');
