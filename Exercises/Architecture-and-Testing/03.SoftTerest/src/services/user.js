@@ -7,7 +7,9 @@ const endpoints = {
     login: `${baseUrl}/users/login`,
     logout: `${baseUrl}/users/logout`,
     getIdeas: `${baseUrl}/data/ideas?select=_id%2Ctitle%2Cimg&sortBy=_createdOn%20desc`,
+    getIdea: (ideaId) => `${baseUrl}/data/ideas/${ideaId}`,
     createIdea: `${baseUrl}/data/ideas`,
+    deleteIdea: (ideaId) => `${baseUrl}/data/ideas/${ideaId}`,
 }
 
 export const register = (email, password, repeatPassword) => request.post(endpoints.register, { email, password, repeatPassword });
@@ -18,4 +20,8 @@ export const logout = () => request.get(endpoints.logout);
 
 export const getIdeas = () => request.get(endpoints.getIdeas);
 
-export const createIdea = (title, description, imageURL) => request.post(endpoints.createIdea, { title, description, imageURL });
+export const getIdea = (ideaId) => request.get(endpoints.getIdea(ideaId));
+
+export const createIdea = (title, description, img) => request.post(endpoints.createIdea, { title, description, img });
+
+export const deleteIdea = (ideaId) => request.del(endpoints.deleteIdea(ideaId));
