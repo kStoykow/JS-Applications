@@ -1,5 +1,6 @@
 import { html } from '../../node_modules/lit-html/lit-html.js';
 import * as userService from '../services/user.js';
+import * as userAuth from '../services/userAuth.js';
 
 const loginTemplate = (ctx) => html`
     <div class="container home wrapper  my-md-5 pl-md-5">
@@ -7,7 +8,7 @@ const loginTemplate = (ctx) => html`
             <div class="col-md-4">
                 <img class="responsive" src="./images/idea.png" alt="">
             </div>
-            <form class="form-user col-md-7" action="" method="">
+            <form class="form-user col-md-7" action="" method="" @submit=${loginHandler.bind(null, ctx)}>
                 <div class="text-center mb-4">
                     <h1 class="h3 mb-3 font-weight-normal">Login</h1>
                 </div>
@@ -32,5 +33,24 @@ const loginTemplate = (ctx) => html`
         </div>
     </div>
 `;
+
+const loginHandler = (ctx, e) => {
+    e.preventDefault();
+
+    const { email, password } = Object.fromEntries(new FormData(e.target));
+
+
+    userService.login(email, password)
+        .then(res => {
+            if (res.code == 403) {
+                throw new Error(res.message);
+            }
+
+            userAuth.saveUser(res);
+            ctx.page.redirect('/');
+        })
+        .catch(err => alert(err.message));
+
+}
 
 export const loginView = (ctx) => ctx.render(loginTemplate(ctx));

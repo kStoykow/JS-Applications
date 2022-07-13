@@ -53,7 +53,10 @@ const registerHandler = (ctx, e) => {
     } else {
         userService.register(email, password, repeatPassword)
             .then(res => {
-                const user = { email: res.email, _id: res._id, accessToken: res.accessToken };
+                const data = email.split('@')[0];
+                const username = data[0].toLocaleUpperCase() + data.slice(1);
+
+                const user = { username: username, email: res.email, _id: res._id, accessToken: res.accessToken };
 
                 userAuth.saveUser(user);
                 ctx.page.redirect('/');
