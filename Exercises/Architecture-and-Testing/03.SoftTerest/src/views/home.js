@@ -15,7 +15,7 @@ const homeTemplate = () => html`
         </div>
     </div>
     <div class="bottom text-center">
-        <a class="btn btn-secondary btn-lg " href="">Get Started</a>
+        <a class="btn btn-secondary btn-lg " href="/register">Get Started</a>
     </div>
 </div>
 `;

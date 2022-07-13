@@ -7,8 +7,9 @@ import { footerMiddleware } from './middlewares/footerRender.js';
 import { homeView } from './views/home.js';
 import { loginView } from './views/login.js';
 import { logoutView } from './views/logout.js';
+import { createView } from './views/create.js';
 import { registerView } from './views/register.js';
-
+import { dashboardView } from './views/dashboard.js';
 
 page(renderMiddleware);
 page(navigationMiddleware);
@@ -17,6 +18,8 @@ page(footerMiddleware);
 page('/', homeView);
 page('/login', loginView);
 page('/logout', logoutView);
+page('/create', createView);
+page('/dashboard', dashboardView);
 page('/register', registerView);
 
 page.start();
