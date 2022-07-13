@@ -35,20 +35,18 @@ const homeTemplate = (ctx, movies) => html`
 `;
 
 const movie = (movie) => html`
-  <li class="card">
-    <div class="row bg-light text-dark">
-  
-      <div class="col-md-8">
-        <img class="img-thumbnail" src="${movie.img}" alt="Movie" />
-        <h1>${movie.title}</h1>
-        <div class="col-md-4 text-center">
-          <a class="btn btn-primary" href="/details/${movie._id}">Details</a>
-        </div>
-      </div>
-  
-    </div>
-  </li>
-  `;
+<li class="card">
+  <img class="card-img-top" src="${movie.img}" alt="Card image cap" width="400">
+  <div class="card-body">
+    <h4 class="card-title">${movie.title}</h4>
+  </div>
+  <div class="card-footer">
+    <a href="/details/${movie._id}">
+      <button data-id="${movie._id}" type="button" class="btn btn-info">Details</button>
+    </a>
+  </div>
+</li>
+`;
 
 export const homeView = (ctx) => {
   userService.getMovies()
