@@ -27,6 +27,7 @@ function req(method, url, data) {
         .then(res => {
             if (res.code == 409 || res.code == 403) {
                 throw new Error(res.message);
+                return res;
             }
 
             return res;

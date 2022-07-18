@@ -5,62 +5,28 @@ const productTemplate = (product) => html`
 <div class="col-md-4">
     <div class="card text-white bg-primary">
         <div class="card-body">
-            <img src="/images/table.png" />
-            <p>Description here</p>
+            <img src="${product.img}" />
+            <p>${product.description}</p>
             <footer>
-                <p>Price: <span>235 $</span></p>
+                <p>Price: <span>${product.price} $</span></p>
             </footer>
             <div>
-                <a href="/" class="btn btn-info">Details</a>
+                <a href="/details/${product._id}" class="btn btn-info">Details</a>
             </div>
         </div>
     </div>
 </div>
 `;
 
-const homeTemplate = (ctx) => html`
+const homeTemplate = (ctx, products) => html`
 <div class="row space-top">
     <div class="col-md-12">
         <h1>Welcome to Furniture System</h1>
         <p>Select furniture from the catalog to view details.</p>
     </div>
 </div>
-<div class="row space-top">
 
-    <div class="col-md-4">
-        <div class="card text-white bg-primary">
-            <div class="card-body">
-                <img src="/images/sofa.jpg" />
-                <p>Description here</p>
-                <footer>
-                    <p>Price: <span>1200 $</span></p>
-                </footer>
-                <div>
-                    <a href="" class="btn btn-info">Details</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card text-white bg-primary">
-            <div class="card-body">
-                <img src="/images/chair.jpg" />
-                <p>Description here</p>
-                <footer>
-                    <p>Price: <span>55 $</span></p>
-                </footer>
-                <div>
-                    <a href=”#” class="btn btn-info">Details</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+${products.map(productTemplate)}
 `;
 
-export const homeView = (ctx) => {
-
-    userService.getAll().then(res => console.log(res));
-
-    ctx.render(homeTemplate(ctx))
-};
+export const homeView = (ctx) => userService.getAll().then(products => ctx.render(homeTemplate(ctx, products)));

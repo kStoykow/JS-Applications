@@ -50,65 +50,15 @@ const createTemplate = (ctx) => html`
 
 
 const createHandler = (ctx, e) => {
-    const makeElem = document.getElementById('new-make');
-    const yearElem = document.getElementById('new-year');
-    const descriptionElem = document.getElementById('new-description');
-    const priceElem = document.getElementById('new-price');
-    const imgElem = document.getElementById('new-img');
-    const materialElem = document.getElementById('new-material');
-
     e.preventDefault();
     const { make, model, year, description, price, img, material } = Object.fromEntries(new FormData(e.target));
 
-    if (make.length < 4) {
-        makeElem.classList.add('is-invalid');
-        makeElem.classList.remove('is-valid');
-        return;
-    } else {
-        makeElem.classList.add('is-valid');
-        makeElem.classList.remove('is-invalid');
+    if (userService.validateProduct() == true) {
+        console.log('create');
+        userService.createFurniture({ make, model, year, description, price, img, material })
+            .then(() => ctx.page.redirect('/'));
     }
-    if (Number(year) < 1950 || Number(year) > 2050) {
-        yearElem.classList.add('is-invalid');
-        yearElem.classList.remove('is-valid');
-        return;
-    } else {
-        yearElem.classList.add('is-valid');
-        yearElem.classList.remove('is-invalid');
-    }
-    if (description.length < 11) {
-        descriptionElem.classList.add('is-invalid');
-        descriptionElem.classList.remove('is-valid');
-        return;
-    } else {
-        descriptionElem.classList.add('is-valid');
-        descriptionElem.classList.remove('is-invalid');
-    }
-    if (Number(price) < 0) {
-        descriptionElem.classList.add('is-invalid');
-        descriptionElem.classList.remove('is-valid');
-        return;
-    } else {
-        descriptionElem.classList.add('is-valid');
-        descriptionElem.classList.remove('is-invalid');
-    }
-    if (img.value == '') {
-        descriptionElem.classList.add('is-invalid');
-        descriptionElem.classList.remove('is-valid');
-        return;
-    } else {
-        descriptionElem.classList.add('is-valid');
-        descriptionElem.classList.remove('is-invalid');
-    }
-
-    userService.createFurniture({ make, model, year, description, price, img, material })
-        .then(res => {
-            console.log(res);
-            ctx.page.redirect('/dashboard');
-        });
 }
 
-export const createView = (ctx) => {
+export const createView = (ctx) => ctx.render(createTemplate(ctx));
 
-    ctx.render(createTemplate(ctx));
-}

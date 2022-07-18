@@ -29,8 +29,7 @@ const loginTemplate = (ctx) => html`
 const loginHandler = (ctx, e) => {
     e.preventDefault();
 
-    const { email, password } = Object.fromEntries(new FormData(e.target));
-    
+    const { email, password } = Object.fromEntries(new FormData(e.target));   
 
     userService.login(email, password)
         .then(res => {
