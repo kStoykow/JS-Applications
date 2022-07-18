@@ -54,7 +54,6 @@ const createHandler = (ctx, e) => {
     const { make, model, year, description, price, img, material } = Object.fromEntries(new FormData(e.target));
 
     if (userService.validateProduct() == true) {
-        console.log('create');
         userService.createFurniture({ make, model, year, description, price, img, material })
             .then(() => ctx.page.redirect('/'));
     }

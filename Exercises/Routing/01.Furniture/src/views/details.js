@@ -26,7 +26,7 @@ const detailsTemplate = (ctx, product) => html`
         ${ctx.user?._id == product._ownerId
             ? html`<div>
             <a href="/edit/${product._id}" class="btn btn-info">Edit</a>
-            <a href="/dashboard" class="btn btn-red" @click=${deleteHandler.bind(null, ctx, product)}>Delete</a>
+            <a href="/" class="btn btn-red" @click=${deleteHandler.bind(null, ctx, product)}>Delete</a>
         </div>`
         : nothing}
     </div>

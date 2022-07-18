@@ -19,7 +19,7 @@ const root = document.querySelector('#allCats');
 
 
 function onShow(e) {
-    const infoElem = e.target.nextElementSibling;
+    const infoElem = document.querySelector('.status');
 
     if (infoElem.style.display == 'none') {
         infoElem.style.display = 'block';
