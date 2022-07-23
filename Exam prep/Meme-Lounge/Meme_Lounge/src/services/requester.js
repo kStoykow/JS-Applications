@@ -1,4 +1,4 @@
-import * as userAuth from './userAuth.js';
+import * as userAuth from '../services/userAuth.js';
 
 function req(method, url, data) {
     let options = {
@@ -26,7 +26,6 @@ function req(method, url, data) {
         })
         .then(res => {
             if (res.code == 409 || res.code == 403) {
-                return res;
                 throw new Error(res.message);
             }
 

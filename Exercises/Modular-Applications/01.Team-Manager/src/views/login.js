@@ -9,7 +9,7 @@ const loginTemplate = (ctx) => html`
             <h1>Login</h1>
         </header>
         <form id="login-form" class="main-form pad-large" @submit=${loginHandler.bind(null, ctx)}>
-            <div class="error">Error message.</div>
+            <div class="error" style="display:none">Error message.</div>
             <label>E-mail: <input type="text" name="email"></label>
             <label>Password: <input type="password" name="password"></label>
             <input class="action cta" type="submit" value="Sign In">
@@ -22,6 +22,7 @@ const loginTemplate = (ctx) => html`
 
 const loginHandler = (ctx, e) => {
     e.preventDefault();
+    const error = document.querySelector('.error');
 
     const { email, password } = Object.fromEntries(new FormData(e.target));
 
@@ -29,13 +30,14 @@ const loginHandler = (ctx, e) => {
     userService.login(email, password)
         .then(res => {
             if (res.code == 403) {
-                throw new Error(res.message);
+                error.textContent= res.message;
+                error.style.display='block';
+                return;
             }
 
             userAuth.saveUser(res);
             ctx.page.redirect('/');
         })
-        .catch(err => alert(err.message));
 }
 
 export const loginView = (ctx) => ctx.render(loginTemplate(ctx));
